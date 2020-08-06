@@ -1,0 +1,66 @@
+<!-- background -->
+<style>
+.body { 
+  background-color: #84c4df; 
+  }
+.footer {
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+background-color: #84c4df;
+color: white;
+text-align: center;
+}
+.header {
+width: 100%;
+text-align: center;
+background: #84c4df;
+color: white;
+font-size: 15px;
+}
+
+
+</style>
+
+
+ <!-- title --> 
+  <head>
+    <meta charset="utf-8">
+    <title>Emotion Recognition</title>
+  </head>
+  
+  <div class="header">
+    <h1>Emotion Recognition</h1>
+  </div>
+  <h2>
+    <div class="footer">
+      <p>Created By: The Feelers</p>
+    </div>
+  </h2>
+
+  <!-- bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<!-- upload button -->
+<body>
+<form method ="POST" enctype="multipart/form-data">
+  <h3>
+    <div class="container h-100 d-flex justify-content-center align-content-center" id="uploadbrowse">
+      <div class="my-auto">
+        <div class="input-group mb-2">
+          <div class="col-xs-5" style="font-size: 15px;">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputGroupFile01">Upload File</label>
+          </div>
+        </div>
+      </div>
+      <div class="input-group-prepend" style="font-size: 10px;" >
+        <button class="input-group-text" id="inputGroupFileAddon01">Predict</button>
+      </div>
+      </div>
+    </div>
+  </h3>
+</form>
+</body>

@@ -1,2 +1,4 @@
 #Untrack these files
 venv/
+photos/*
+myModel1.h5

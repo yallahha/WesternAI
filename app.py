@@ -11,17 +11,17 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import load_model
 import joblib
 
+
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
-recogniton_model = load_model("WesternAI\myModel1.h5")
+recogniton_model = load_model("D:\Documents\WesternAI\WesternAI\myModel1.h5")
 
 class photoForm(FlaskForm):
     photo = FileField(validators=[FileRequired()])
 
 
 def predictImg(img):
-    print('hi')
-    print(img)
     objects = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
     img = image.load_img(img, grayscale=True, target_size=(48, 48))
     #show_img=image.load_img(img, grayscale=False, target_size=(200, 200))
@@ -51,7 +51,7 @@ def upload_file():
         extension = os.path.splitext(f.filename)[1]
         session['ext'] = extension
         filename = 'pre-predictImg' + extension #secure_filename(f.filename)
-        path = 'D:\Documents\Western AI\WesternAI\photos'
+        path = 'D:\Documents\WesternAI\WesternAI\static\photos'
         f.save(os.path.join(
             path, filename
         ))
@@ -62,9 +62,19 @@ def upload_file():
 @app.route('/prediction')
 def predict():
     print(session['ext'])
-    img = 'D:\Documents\Western AI\WesternAI\photos\pre-predictImg' + session['ext']
+    img = 'D:\Documents\WesternAI\WesternAI\static\photos\pre-predictImg' + session['ext']
     prediction = predictImg(img)
     return render_template('prediction.html', value = prediction, img = img)
+
+@app.after_request
+def add_header(response):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)  

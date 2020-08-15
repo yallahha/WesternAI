@@ -2,5 +2,4 @@
 venv/
 photos/*
 photos/.gitkeep 
-myModel1.h5
 static/photos/pre-predictImg.jpg

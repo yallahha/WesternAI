@@ -12,17 +12,15 @@ from tensorflow.keras.models import load_model
 import joblib
 
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-recogniton_model = load_model("D:\Documents\WesternAI\WesternAI\myModel1.h5")
+recogniton_model = load_model(os.path.join("myModel1.h5"))
 
 class photoForm(FlaskForm):
     photo = FileField(validators=[FileRequired()])
 
 def allowed_file(filename):
-    print('hi')
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -58,7 +56,8 @@ def upload_file():
             extension = os.path.splitext(f.filename)[1]
             session['ext'] = extension
             filename = 'pre-predictImg' + extension #secure_filename(f.filename)
-            path = 'D:\Documents\WesternAI\WesternAI\static\photos'
+            path = "static"
+            path = os.path.join(path, 'photos')
             f.save(os.path.join(
                 path, filename
             ))
@@ -67,9 +66,11 @@ def upload_file():
 
 @app.route('/prediction')
 def predict():
-    img = 'D:\Documents\WesternAI\WesternAI\static\photos\pre-predictImg' + session['ext']
+    path = "static"
+    img = os.path.join(path,'photos','pre-predictImg' + session['ext'])
+    print(img)
     prediction = predictImg(img)
-    return render_template('prediction.html', value = prediction, img = img)
+    return render_template('prediction.html', value = prediction, img = img, ext= session['ext'])
 
 @app.after_request
 def add_header(response):
